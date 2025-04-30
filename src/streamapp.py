@@ -1,14 +1,12 @@
 import streamlit as st
 from src.generateS import Generate
 from src.saveConversation import save_conversation, load_conversations, delete_conversation
-# from memory import ChatbotMemory
 import subprocess
 
 def get_model_list():
     result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
     lines = result.stdout.strip().split('\n')
-    models = [line.split()[0] for line in lines[1:]] 
-    return models
+    return [line.split()[0] for line in lines[1:]]
 
 def get_conversation_history(sauvegarde):
     for index, row in sauvegarde.iterrows():
