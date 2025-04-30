@@ -15,5 +15,3 @@ def generate_embedding(text):
 
 def cosine_sim(a, b):
     return np.dot(a, b)/(norm(a)*norm(b))
-
-

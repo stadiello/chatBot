@@ -1,6 +1,6 @@
 import ollama
 import logging
-from src.rag.new_chromadb import rag_pipeline
+from rag.new_chromadb import rag_pipeline
 from shortterm_memory.ChatbotMemory import ChatbotMemory
 import streamlit as st
 import os

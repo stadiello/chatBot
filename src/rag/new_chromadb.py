@@ -3,8 +3,8 @@ import os
 import time
 import chromadb
 from chromadb.config import Settings
-from src.rag.document_reader import reader
-from src.rag.enbedding import generate_embedding
+from rag.document_reader import reader
+from rag.enbedding import generate_embedding
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import numpy as np
