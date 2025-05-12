@@ -1,37 +1,36 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "chatBot"
 version = "0.1.0"
-description = "A chatbot application with RAG pipeline and memory management."
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Athena", email = "athena@example.com"}
+    {name = "stadiello", email = "tadiello.sebastien.com"}
 ]
+description = "A chatbot application with RAG pipeline"
 requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent"
+dependencies = [
+    "ollama==0.3.2",
+    "transformers==4.44.2",
+    "streamlit==1.38.0",
+    "pandas",
+    "tensorflow==2.14.1",
+    "chromadb==0.5.5",
+    "torch==2.4.0",
+    "python-docx==1.1.2",
+    "PyMuPDF==1.24.9",
+    "watchdog==4.0.2",
+    "scikit-learn==1.3.2",
+    "sentence-transformers",
+    "pytest"
 ]
-
-[project.dependencies]
-ollama = "0.3.2"
-transformers = "4.44.2"
-streamlit = "1.38.0"
-pandas = "*"
-tensorflow-keras = "2.14.1"
-chromadb = "0.5.5"
-torch = "2.4.0"
-python-docx = "1.1.2"
-PyMuPDF = "1.24.9"
-watchdog = "4.0.2"
-scikit-learn = "1.3.2"
-shortterm_memory = "1.1.2"
-sentence-transformers = "*"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["chatbot*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
