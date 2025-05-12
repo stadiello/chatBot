@@ -1,6 +1,6 @@
 import streamlit as st
-from generateS import Generate
-from saveConversation import save_conversation, load_conversations, delete_conversation
+from src.generateS import Generate
+from src.saveConversation import save_conversation, load_conversations, delete_conversation
 import subprocess
 
 def get_model_list():

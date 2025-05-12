@@ -4,13 +4,23 @@ import time
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Ajout du répertoire racine au PYTHONPATH
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, project_root)
+os.environ["PYTHONPATH"] = project_root
 
 def init_db():
-    subprocess.run(["python", "src/rag/new_chromadb.py"])
+    from src.rag.new_chromadb import rag_pipeline
+    # Initialisation silencieuse de la base de données
+    try:
+        rag_pipeline("test")
+    except Exception as e:
+        print(f"Erreur lors de l'initialisation de la base de données : {e}")
 
 def run_app():
-    subprocess.run(["streamlit", "run", "src/streamapp.py"])
+    env = os.environ.copy()
+    env["PYTHONPATH"] = project_root
+    subprocess.run(["streamlit", "run", "src/streamapp.py"], env=env)
     
 if __name__ == "__main__":
     try:
