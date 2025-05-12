@@ -1,28 +1,30 @@
 import sys
 import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import time
 import chromadb
-from chromadb.config import Settings
 from rag.document_reader import reader
-from rag.enbedding import generate_embedding
+from rag.enbedding import CustomEmbeddingFunction
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import numpy as np
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-STORAGE_PATH = "data/db"
+STORAGE_PATH = "data/chroma_data"
 if STORAGE_PATH is None:
     raise ValueError('STORAGE_PATH environment variable is not set')
 
-chromadb_client = chromadb.PersistentClient(
-    path=STORAGE_PATH,
-    embedding_function=generate_embedding
-)
+# Initialisation du client Chroma
+chromadb_client = chromadb.PersistentClient(path=STORAGE_PATH)
+
+# Création d'une nouvelle instance de la fonction d'embedding
+embedding_function = CustomEmbeddingFunction()
 
 collection = chromadb_client.get_or_create_collection(
     name="documentsTest",
-    metadata={"hnsw:space": "cosine"}
+    metadata={"hnsw:space": "cosine"},
+    embedding_function=embedding_function
 )
 
 documents = reader("data/documents_to_rag")

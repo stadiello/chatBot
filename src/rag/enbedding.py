@@ -4,14 +4,17 @@ import numpy as np
 from numpy.linalg import norm
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-def generate_embedding(text):
-    return model.encode(text)
-
-# def generate_embedding(text):
-#     vectorizer = embedding_functions.DefaultEmbeddingFunction()
-#     return vectorizer(text)
+class CustomEmbeddingFunction:
+    def __init__(self):
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+    
+    def __call__(self, input):
+        if isinstance(input, str):
+            input = [input]
+        return self.model.encode(input).tolist()
 
 def cosine_sim(a, b):
     return np.dot(a, b)/(norm(a)*norm(b))
+
+# Instance globale de la fonction d'embedding
+generate_embedding = CustomEmbeddingFunction()

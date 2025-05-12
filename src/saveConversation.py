@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import streamlit as st
+import os
 
 def save_conversation(title, history)->None:
     user_conversation = ""
@@ -17,10 +18,15 @@ def save_conversation(title, history)->None:
     }
     df = pd.DataFrame(data)
     
+    os.makedirs(os.path.dirname("data/conversations.csv"), exist_ok=True)
     try:
         # Append mode ('a'), header only if the file does not already exist
         df.to_csv("data/conversations.csv", mode='a', header=not pd.io.common.file_exists("data/conversations.csv"), sep=";", index=False)
         st.success("Conversation sauvegardée avec succès !")
+    except FileNotFoundError as e:
+        st.error(f"Erreur : fichier introuvable - {e}")
+    except PermissionError as e:
+        st.error(f"Erreur : permission refusée - {e}")
     except Exception as e:
         st.error(f"Erreur lors de la sauvegarde de la conversation: {e}")
         
