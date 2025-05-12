@@ -8,7 +8,7 @@ version = "0.1.0"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "stadiello", email = "tadiello.sebastien.com"}
+    {name = "stadiello", email = "tadiello.sebastien@gmail.com"}
 ]
 description = "A chatbot application with RAG pipeline"
 requires-python = ">=3.9"
